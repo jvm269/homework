@@ -1,0 +1,54 @@
+Sub Ticker():
+
+'run loop through all the worksheets
+Dim WS As Worksheet
+For Each WS In ActiveWorkbook.Worksheets
+WS.Activate
+
+'establishing ticker for company
+Dim Ticker_Name As String
+Ticker_Name = ""
+'make table
+Range("I1").Value = "Ticker"
+Range("J1").Value = "Volume"
+Dim Summary_Table_Row As Long
+Summary_Table_Row = 2
+
+'loop though all tickers till last row
+Dim i As Long
+'Determine the Last Row
+LastRow = WS.Cells(Rows.Count, 1).End(xlUp).Row
+Dim Volume_Total As LongLong
+Volume_Total = 0
+
+'for all rows
+    For i = 2 To LastRow
+    'Calculate Volume
+            Volume_Total = Volume_Total + Cells(i, 7).Value
+        'if tickername is blank then  collect the value of the row
+        If Ticker_Name = "" Then
+            Ticker_Name = Cells(i, 1).Value
+        End If
+    
+        'if the ticker names are not the same
+        If WS.Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+           WS.Cells(Summary_Table_Row, 9).Value = Ticker_Name
+           WS.Cells(Summary_Table_Row, 10).Value = Volume_Total
+            'reset volume total
+            Volume_Total = 0
+            'go to the next row in table
+            Summary_Table_Row = Summary_Table_Row + 1
+            'get next ticker name
+            Ticker_Name = Cells(i + 1, 1)
+            End If
+    
+    'go to the next row
+    Next i
+        'check that it's changed worksheets
+        MsgBox (WS.Name)
+ 
+ 
+    'run on the next worksheet
+    Next WS
+
+End Sub
