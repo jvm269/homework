@@ -72,7 +72,7 @@ def welcome():
 def precipitation():
         # Convert the Query Results to a Dictionary Using `date` as the Key and `prcp` as the Value
         # Calculate the Date 1 Year Ago from the Last Data Point in the Database
-        one_year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
+        one_year_ago = dt.date(2018,7,7) - dt.timedelta(days=365)
         # Design a Query to Retrieve the Last 12 Months of Precipitation Data Selecting Only the `date` and `prcp` Values
         prcp_data = session.query(Measurement.date, Measurement.prcp).\
                 filter(Measurement.date >= one_year_ago).\
@@ -96,7 +96,7 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
         # Query for the Dates and Temperature Observations from a Year from the Last Data Point
-        one_year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
+        one_year_ago = dt.date(2018,7,7) - dt.timedelta(days=365)
         # Design a Query to Retrieve the Last 12 Months of Precipitation Data Selecting Only the `date` and `prcp` Values
         tobs_data = session.query(Measurement.date, Measurement.tobs).\
                 filter(Measurement.date >= one_year_ago).\
